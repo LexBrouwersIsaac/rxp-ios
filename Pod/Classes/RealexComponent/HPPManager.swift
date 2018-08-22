@@ -402,7 +402,9 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
      */
     fileprivate func getPaymentForm() {
 
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
 
         let cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
         let request = NSMutableURLRequest(url: self.HPPURL, cachePolicy: cachePolicy, timeoutInterval: 30.0)
