@@ -221,8 +221,7 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
 
         if  self.HPPRequestProducerURL.absoluteString != "" {
             self.getHPPRequest()
-            let navigationController = UINavigationController(rootViewController: self.hppViewController)
-            viewController.present(navigationController, animated: true, completion: nil)
+            viewController.show(self.hppViewController, sender: viewController)
         } else {
             // error
             print("HPPRequestProducerURL can't be blank")

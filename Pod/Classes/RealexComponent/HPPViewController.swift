@@ -39,10 +39,14 @@ class HPPViewController: UIViewController, WKNavigationDelegate,  WKUIDelegate, 
             // use UIView
             self.initaliseLegacyWebView()
         }
+    }
 
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(HPPViewController.closeView))
-        self.navigationItem.leftBarButtonItem = cancelButton
-
+    override func viewWillDisappear(_ animated : Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParentViewController {
+            self.delegate?.HPPViewControllerWillDismiss!()
+        }
     }
 
     /**
