@@ -92,28 +92,27 @@ class HPPViewController: UIViewController, WKNavigationDelegate,  WKUIDelegate, 
      - parameter request: The network request to be loaded.
      */
     func loadRequest (_ request: URLRequest) {
-
         if #available(iOS 9.0, *) {
             //load request in new WKWebView
             let session = URLSession.shared
             let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) -> Void in
+                DispatchQueue.main.async {
+                    if error != nil {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
-                if error != nil {
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        self.delegate?.HPPViewControllerFailedWithError!(error as NSError?)
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    else if data?.count == 0 {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
-                    self.delegate?.HPPViewControllerFailedWithError!(error as NSError?)
-                    self.dismiss(animated: true, completion: nil)
-                }
-                else if data?.count == 0 {
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-
-                    self.delegate?.HPPViewControllerFailedWithError!(nil)
-                    self.dismiss(animated: true, completion: nil)
-                }
-                else {
-                    let htmlString = String(data: data!, encoding: String.Encoding.utf8)
-                    self.webView!.loadHTMLString(htmlString!, baseURL: request.url)
-
+                        self.delegate?.HPPViewControllerFailedWithError!(nil)
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    else {
+                        let htmlString = String(data: data!, encoding: String.Encoding.utf8)
+                        self.webView!.loadHTMLString(htmlString!, baseURL: request.url)
+                    }
                 }
             })
             dataTask.resume()
