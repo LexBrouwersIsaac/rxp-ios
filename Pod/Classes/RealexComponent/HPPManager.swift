@@ -242,8 +242,8 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
 
             parameters[key as! String] = value as? String
         }
-		parameters["HPP_VERSION"] = "2"
-		parameters["HPP_POST_RESPONSE"] = self.HPPRequestProducerURL.scheme! + "://" + self.HPPRequestProducerURL.host!
+        parameters["HPP_TEMPLATE_TYPE"] = "LIGHTBOX"
+        parameters["HPP_ORIGIN"] = self.HPPRequestProducerURL.scheme! + "://" + self.HPPRequestProducerURL.host!
 
         let parameterString = parameters.stringFromHttpParameters()
         return parameterString.data(using: String.Encoding.utf8)!;
