@@ -40,7 +40,7 @@ class HPPViewController: UIViewController, WKNavigationDelegate,  WKUIDelegate, 
             self.initaliseLegacyWebView()
         }
 
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(HPPViewController.closeView))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(HPPViewController.closeView))
         self.navigationItem.leftBarButtonItem = cancelButton
 
     }
@@ -193,7 +193,7 @@ class HPPViewController: UIViewController, WKNavigationDelegate,  WKUIDelegate, 
     /* intercepts any URL load requests and checks the URL Scheme, if it is custom scheme 'callbackhandler' this is a message from the webpage and is reported back to the HPP Manager. */
     func webView(_ webView: UIWebView,
         shouldStartLoadWith request: URLRequest,
-        navigationType: UIWebViewNavigationType) -> Bool {
+        navigationType: UIWebView.NavigationType) -> Bool {
 
             if (request.url?.scheme == "callbackhandler") {
 

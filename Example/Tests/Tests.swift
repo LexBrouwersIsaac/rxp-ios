@@ -79,9 +79,9 @@ class rxp_iosTests: XCTestCase {
         let calendar = Calendar.current
         let components = calendar.dateComponents([Calendar.Component.year, Calendar.Component.month], from: currentDate)
         var nowMonth = String(describing: components.month!)
-        nowMonth = nowMonth.characters.count < 2 ? "0" + nowMonth : nowMonth
+        nowMonth = nowMonth.count < 2 ? "0" + nowMonth : nowMonth
         let year = String(describing: components.year!)
-        let nowYear = year.substring(from: year.index(year.startIndex, offsetBy: 2))
+        let nowYear = year[year.index(year.startIndex, offsetBy: 2)...]
         let nowDate = nowMonth + nowYear
         
         XCTAssertTrue(RealexRemote.validateExpiryDateNotInPast(nowDate), "current month")
