@@ -355,7 +355,9 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
      */
     fileprivate func getHPPRequest() {
 
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
 
         let cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
 		let request: NSMutableURLRequest = NSMutableURLRequest(url: self.HPPRequestProducerURL, cachePolicy: cachePolicy, timeoutInterval: 30.0)
@@ -382,14 +384,18 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
                 }
                 else {
                     // error
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
                     self.delegate?.HPPManagerFailedWithError!(error! as NSError)
                     self.hppViewController.dismiss(animated: true, completion: nil)
                 }
 
             } catch {
                 // error
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
                 self.delegate?.HPPManagerFailedWithError!(error as NSError)
                 self.hppViewController.dismiss(animated: true, completion: nil)
             }
@@ -428,7 +434,9 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
      */
     fileprivate func decodeHPPResponse(_ hppResponse: String) {
 
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
 
         let cachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalCacheData
         var request = URLRequest(url: self.HPPResponseConsumerURL, cachePolicy: cachePolicy, timeoutInterval: 30.0)
@@ -445,7 +453,9 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
         let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) -> Void in
             do {
                 // Stop the spinner
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
 
                 if let receivedData = data {
                     // success

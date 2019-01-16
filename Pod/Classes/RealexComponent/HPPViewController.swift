@@ -130,19 +130,25 @@ class HPPViewController: UIViewController, WKNavigationDelegate,  WKUIDelegate, 
     /* Start the network activity indicator when the web view is loading */
     func webView(_ webView: WKWebView,
         didStartProvisionalNavigation navigation: WKNavigation){
+        DispatchQueue.main.async {
             // Start the network activity indicator when the web view is loading
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
     }
 
     /* Stop the network activity indicator when the loading finishes */
     func webView(_ webView: WKWebView,
         didFinish navigation: WKNavigation){
+        DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
     }
 
     /* Stop the network activity indicator when the loading fails and report back to HPPManager */
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
         self.delegate?.HPPViewControllerFailedWithError!(error as NSError?)
     }
 
@@ -200,21 +206,25 @@ class HPPViewController: UIViewController, WKNavigationDelegate,  WKUIDelegate, 
 
     /* Start the network activity indicator when the web view is loading */
     func webViewDidStartLoad(_ webView: UIWebView) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
     }
 
     /* Stop the network activity indicator when the loading finishes */
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
     }
 
     /* Stop the network activity indicator when the loading fails and report back to HPPManager */
     func webView(_ webView: UIWebView,
         didFailLoadWithError error: Error) {
+        DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            self.delegate?.HPPViewControllerFailedWithError!(error as NSError?)
+        }
+        self.delegate?.HPPViewControllerFailedWithError!(error as NSError?)
     }
 
 }
