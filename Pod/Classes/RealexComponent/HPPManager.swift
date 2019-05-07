@@ -446,14 +446,8 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
         request.setValue("*/*", forHTTPHeaderField: "Accept")
 
         var parameters = "hppResponse=" + hppResponse
-        print("[Test] Before, parameters: \(parameters)")
-        if let parametersPercentEncoding = parameters.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed) {
-            parameters = parametersPercentEncoding
-            print("[Test] After, parameters: \(parameters)")
-        } else {
-            print("[Test] Failed to apply percent encoding")
-        }
-
+        parameters = parameters.replacingOccurrences(of: "=", with: "%3D")
+        
         request.httpBody = parameters.data(using: String.Encoding.utf8)
 
         let session = URLSession.shared
