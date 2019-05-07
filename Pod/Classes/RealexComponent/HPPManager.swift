@@ -445,7 +445,14 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
         request.setValue("application/x-www-form-urlencoded; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.setValue("*/*", forHTTPHeaderField: "Accept")
 
-        let parameters = "hppResponse=" + hppResponse
+        var parameters = "hppResponse=" + hppResponse
+        print("[Test] Before, parameters: \(parameters)")
+        if let parametersPercentEncoding = parameters.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed) {
+            parameters = parametersPercentEncoding
+            print("[Test] After, parameters: \(parameters)")
+        } else {
+            print("[Test] Failed to apply percent encoding")
+        }
 
         request.httpBody = parameters.data(using: String.Encoding.utf8)
 
