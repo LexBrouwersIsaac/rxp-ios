@@ -445,7 +445,7 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
         request.setValue("application/x-www-form-urlencoded; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.setValue("*/*", forHTTPHeaderField: "Accept")
 
-        let completelyDifferentName = "this=fakeprefix, hppResponse=" + hppResponse
+        let completelyDifferentName = "It's time to stop"// "this=fakeprefix, hppResponse=" + hppResponse
         //parameters = parameters.replacingOccurrences(of: "=", with: "%3D")
         
         request.httpBody = completelyDifferentName.data(using: String.Encoding.utf8)
