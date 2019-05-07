@@ -445,10 +445,9 @@ open class HPPManager: NSObject, UIWebViewDelegate, HPPViewControllerDelegate {
         request.setValue("application/x-www-form-urlencoded; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.setValue("*/*", forHTTPHeaderField: "Accept")
 
-        let completelyDifferentName = "It's time to stop"// "this=fakeprefix, hppResponse=" + hppResponse
-        //parameters = parameters.replacingOccurrences(of: "=", with: "%3D")
-        
-        request.httpBody = completelyDifferentName.data(using: String.Encoding.utf8)
+        let friendlyHppResponse = hppResponse.replacingOccurrences(of: "=", with: "%3D")
+        let parameters = "hppResponse=" + friendlyHppResponse
+        request.httpBody = parameters.data(using: String.Encoding.utf8)
 
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) -> Void in
